@@ -10,7 +10,7 @@ export interface Product{
     price: number,
     category_id:number,
     stock: number,
-    image_url:string,
+    image_url:string | null,
     id: number,
 }
 

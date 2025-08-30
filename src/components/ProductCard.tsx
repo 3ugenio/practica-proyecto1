@@ -10,13 +10,13 @@ const ProductCard = ({product}: InfoProductCard ) => {
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
-        <img src="" alt="IMGProducto" />
+        <img src={product.image_url || undefined} alt="IMGProducto" className="p-5"/>
       </figure>
       <div className="card-body">
-        <h2 className="card-title justify-center">Nombre del producto {}</h2>
-        <p>{}descripcion</p>
+        <h2 className="card-title justify-center"> {product.name}</h2>
+        <p>{product.description}</p>
         <div className="card-actions justify-end">
-          <div className="badge badge-outline">{}precio</div>
+          <div className="badge badge-outline">Bs.  {product.price}</div>
         </div>
       </div>
     </div>

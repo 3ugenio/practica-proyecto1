@@ -1,16 +1,27 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
-import type { Product } from '../interfaces/product.interface';ç
+import type { Product } from "../interfaces/product.interface";
 import { useState, useEffect } from "react";
 
 const Home = () => {
-const [ product, setProduct ] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([
+    {
+      name: "Pan",
+      description: "Pan hecho en la mañana",
+      id: 1,
+      category_id: 1,
+      stock: 1,
+      image_url:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0mo1-1RPPCSd54lH3fcOeOWM1wRHxEZ3C1A&s",
+      price: 20,
+    },
+  ]);
 
-    useEffect(()=>{
-        const fetchProducts = async () =>{
-            const url = `${import.meta.env.VITE_APIURL}`;
-        }
-    }, [])
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const url = `${import.meta.env.VITE_APIURL}/products`;
+    };
+  }, []);
 
   return (
     <div className="item-center justify-center">
@@ -27,7 +38,9 @@ const [ product, setProduct ] = useState<Product[]>([]);
         <div className="card-body inline-block text-xl text-center text-primary-content  rounded-3xl px-4 py-2">
           <div className=" inline-block bg-primary text-primary-content rounded-3xl px-4 py-2 ">
             Acá se mostrará los productos
-            <ProductCard product={product}></ProductCard>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product}></ProductCard>
+            ))}
           </div>
         </div>
       </div>
