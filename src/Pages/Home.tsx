@@ -1,7 +1,17 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
+import type { Product } from '../interfaces/product.interface';ç
+import { useState, useEffect } from "react";
 
 const Home = () => {
+const [ product, setProduct ] = useState<Product[]>([]);
+
+    useEffect(()=>{
+        const fetchProducts = async () =>{
+            const url = `${import.meta.env.VITE_APIURL}`;
+        }
+    }, [])
+
   return (
     <div className="item-center justify-center">
       <div className="card flex flex-col items-center justify-center space-y-4">
@@ -17,7 +27,7 @@ const Home = () => {
         <div className="card-body inline-block text-xl text-center text-primary-content  rounded-3xl px-4 py-2">
           <div className=" inline-block bg-primary text-primary-content rounded-3xl px-4 py-2 ">
             Acá se mostrará los productos
-            <ProductCard></ProductCard>
+            <ProductCard product={product}></ProductCard>
           </div>
         </div>
       </div>
