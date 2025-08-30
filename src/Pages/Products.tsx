@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 // category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
 // name = Column(String, nullable=False)
@@ -6,66 +6,193 @@ import React from 'react'
 // price = Column(Float, nullable=False)
 // stock = Column(Integer, default=0)
 // image_url = Column(String, nullable=True)
-
 const Products = () => {
+    // Estado para los campos del formulario
+    const [form, setForm] = React.useState({
+        id: "",
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+        image_url: "",
+        category_id: "",
+    });
 
-    return(<>
-    <div className='item-center justify-center text-black'>
-        
-        <form className="flex flex-col gap-4 max-w-md mx-auto p-4 bg-primary rounded-3xl  shadow ">
-            <h2 className='text-center text-2xl'> Inventario</h2>
-            <input
-            type="text"
-            placeholder="Nombre del producto"
-            name="name"
-            className="border p-2 rounded"
-            />
-            <textarea
-            placeholder="Descripción del producto "
-            name="description"
-            className="border p-2 rounded"
-            />
-            <input
-            type="number"
-            placeholder="Precio del producto"
-            name="price"
-            className="border p-2 rounded"
-            step="0.01"
-            />
-            <input
-            type="number"
-            placeholder="Stock del producto"
-            name="stock"
-            className="border p-2 rounded"
-            />
-            <input
-            type="text"
-            placeholder="URL de la imagen"
-            name="image_url"
-            className="border p-2 rounded"
-            />
-            <input
-            type="number"
-            placeholder="ID de Categoría"
-            name="category_id"
-            className="border p-2 rounded"
-            />
-            <div className="flex gap-2 items-center justify-center">
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded btn">
-                Agregar
-            </button>
-            <button type="button" className="bg-yellow-500 text-white px-4 py-2 rounded btn">
-                Actualizar
-            </button>
-            <button type="button" className="bg-red-500 text-white px-4 py-2 rounded btn">
-                Borrar
-            </button>
+    // Manejar cambios en los campos
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    // Evento para agregar producto
+    const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const response = await fetch("/api/products", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
+            if (!response.ok) {
+                throw new Error("Error al agregar el producto");
+            }
+            alert("Producto agregado correctamente");
+            setForm({
+                id: "",
+                name: "",
+                description: "",
+                price: "",
+                stock: "",
+                image_url: "",
+                category_id: "",
+            });
+        } catch (error) {
+            alert((error as Error).message);
+        }
+    };
+
+    // Evento para actualizar producto
+    const handleUpdate = async () => {
+        if (!form.id) {
+            alert("Por favor ingresa el ID del producto a actualizar");
+            return;
+        }
+        try {
+            const response = await fetch(`/api/products/${form.id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form),
+            });
+            if (!response.ok) {
+                throw new Error("Error al actualizar el producto");
+            }
+            alert("Producto actualizado correctamente");
+        } catch (error) {
+            alert((error as Error).message);
+        }
+    };
+
+    // Evento para borrar producto
+    const handleDelete = async () => {
+        if (!form.id) {
+            alert("Por favor ingresa el ID del producto a borrar");
+            return;
+        }
+        try {
+            const response = await fetch(`/api/products/${form.id}`, {
+                method: "DELETE",
+            });
+            if (!response.ok) {
+                throw new Error("Error al borrar el producto");
+            }
+            alert("Producto borrado correctamente");
+            setForm({
+                id: "",
+                name: "",
+                description: "",
+                price: "",
+                stock: "",
+                image_url: "",
+                category_id: "",
+            });
+        } catch (error) {
+            alert((error as Error).message);
+        }
+    };
+
+    return (
+        <>
+            <div className="item-center justify-center text-black">
+                <form
+                    className="flex flex-col gap-4 max-w-md mx-auto p-4 bg-primary rounded-3xl  shadow "
+                    onSubmit={handleAdd}
+                >
+                    <h2 className="text-center text-2xl"> Inventario</h2>
+                    <input
+                        type="number"
+                        placeholder="Id del producto"
+                        name="id"
+                        className="border p-2 rounded"
+                        value={form.id}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Nombre del producto"
+                        name="name"
+                        className="border p-2 rounded"
+                        value={form.name}
+                        onChange={handleChange}
+                    />
+                    <textarea
+                        placeholder="Descripción del producto "
+                        name="description"
+                        className="border p-2 rounded"
+                        value={form.description}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="number"
+                        placeholder="Precio del producto"
+                        name="price"
+                        className="border p-2 rounded"
+                        step="0.01"
+                        value={form.price}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="number"
+                        placeholder="Stock del producto"
+                        name="stock"
+                        className="border p-2 rounded"
+                        value={form.stock}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        placeholder="URL de la imagen"
+                        name="image_url"
+                        className="border p-2 rounded"
+                        value={form.image_url}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="number"
+                        placeholder="ID de Categoría"
+                        name="category_id"
+                        className="border p-2 rounded"
+                        value={form.category_id}
+                        onChange={handleChange}
+                    />
+                    <div className="flex gap-2 items-center justify-center">
+                        <button
+                            type="submit"
+                            className="bg-blue-500 text-white px-4 py-2 rounded btn"
+                        >
+                            Agregar
+                        </button>
+                        <button
+                            type="button"
+                            className="bg-yellow-500 text-white px-4 py-2 rounded btn"
+                            onClick={handleUpdate}
+                        >
+                            Actualizar
+                        </button>
+                        <button
+                            type="button"
+                            className="bg-red-500 text-white px-4 py-2 rounded btn"
+                            onClick={handleDelete}
+                        >
+                            Borrar
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </>
+    );
+};
 
-    </div>
-
-    </>)
-
-}
-export default Products
+export default Products;
