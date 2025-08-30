@@ -15,61 +15,45 @@ const MainLayout = () => {
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
               <li><NavLink 
-                to={'/counter'}
+                to={'/home'}
                 className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Contador </NavLink></li>
+              >Home </NavLink></li>
               <li>
                  <NavLink 
-                to={'/task-manager'}
+                to={'/products'}
                 className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Task Manager </NavLink>
-              </li>
-              <li>
-                 <NavLink 
-                to={'/cinema/now-playing'}
-                className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Cinema</NavLink>
-              </li>
+              >Inventario</NavLink>
+              </li>            
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">Mariño.Inc</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <NavLink 
-                to={'/counter'}
+                to={'/home'}
                 className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Contador </NavLink>
+              >Home </NavLink>
             </li>
             <li>
               <NavLink 
-                to={'/task-manager'}
+                to={'/products'}
                 className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Task Manager </NavLink>
-            </li>
-            <li>
-                 <NavLink 
-                to={'/cinema/now-playing'}
-                className={({ isActive } ) => isActive ? 'active bg-primary text-primary-content' : ''}
-              >Cinema</NavLink>
-              </li>
+              >Inventario </NavLink>
+            </li>           
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {/* <a className="btn">Button</a> */}
         </div>
       </div>
       <main className='container mx-auto px-4 py-8 flex-1'>
         <Outlet />
       </main>
-
-
-
       <footer className='text-center py-6 bg-base-100 shadow-sm mt-8'>
-        <p className='font-semibold'>Desarrollado con React 19 + TypeScript + Vite + Tailwind CSS + DaisyUI</p>
-      </footer>
-      
+        <p className='font-semibold'>Practica del diplomado fullstack</p>
+      </footer>      
     </div>
   )
 }
