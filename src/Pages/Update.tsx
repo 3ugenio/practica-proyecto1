@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 
 
 
@@ -9,7 +8,7 @@ import { useParams } from "react-router-dom";
 // price = Column(Float, nullable=False)
 // stock = Column(Integer, default=0)
 // image_url = Column(String, nullable=True)
-const Products = () => {
+const Update = () => {
   // Estado para los campos del formulario
   const [form, setForm] = React.useState({
     id: "",
@@ -34,10 +33,8 @@ const Products = () => {
  
 
   // Evento para agregar producto
-  const { id } = useParams(
-
-  );
-  const handleAdd = async (e: React.FormEvent<HTMLFormElement>) => {
+  
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
      if (form.price && isNaN(Number(form.price))) {
     alert("El precio debe ser un número válido");
@@ -99,7 +96,7 @@ const Products = () => {
   }
     try {
       const response = await fetch(`${import.meta.env.VITE_APIURL}/products`, {
-        method: "POST",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
@@ -121,28 +118,6 @@ const Products = () => {
     }
   };
 
-  // Evento para actualizar producto
-  const handleUpdate = async () => {
-    if (!form.id) {
-      alert("Por favor ingresa el ID del producto a actualizar");
-      return;
-    }
-    try {
-      const response = await fetch(`${import.meta.env.VITE_APIURL}/products/${form.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!response.ok) {
-        throw new Error("Error al actualizar el producto");
-      }
-      alert("Producto actualizado correctamente");
-    } catch (error) {
-      alert((error as Error).message);
-    }
-  };
-
-  // Evento para borrar producto
 
 
   return (
@@ -150,9 +125,18 @@ const Products = () => {
       <div className="item-center justify-center text-black">
         <form
           className="flex flex-col gap-4 max-w-md mx-auto p-4 bg-primary rounded-3xl  shadow "
-          onSubmit={handleAdd}
+          onSubmit={handleUpdate}
         >
-          <h2 className="text-center text-2xl"> Inventario</h2>
+          <h2 className="text-center text-2xl"> Actualizar</h2>
+          <input
+            type="id"
+            placeholder="id del producto"
+            name="id"
+            className="border p-2 rounded"
+            value={form.id}
+            onChange={handleChange}
+            required
+          />
           <input
             type="text"
             placeholder="Nombre del producto"
@@ -209,11 +193,13 @@ const Products = () => {
           />
           <div className="flex gap-2 items-center justify-center">
             <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded btn"
+            type="submit"
+            className=" text-white px-4 py-2 rounded btn btn-success "
             >
-              Agregar
-            </button>        
+              Actualizar
+            </button>
+        
+          
              
            
           </div>
@@ -223,4 +209,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Update;

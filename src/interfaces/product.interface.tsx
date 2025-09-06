@@ -5,12 +5,13 @@
 // stock = Column(Integer, default=0)
 // image_url = Column(String, nullable=True)
 export interface Product{
+    id: number,
     name: string,
     description: string,
     price: number,
     category_id:number,
     stock: number,
-    image_url:string | null,
-    id: number,
+    image_url:string ,
+    
 }
 

@@ -45,7 +45,17 @@ const MainLayout = () => {
                     isActive ? "active bg-primary text-primary-content" : ""
                   }
                 >
-                  Inventario
+                  Inventario {" "}
+                </NavLink>
+              </li>
+               <li>
+                <NavLink
+                  to={"update"}
+                  className={({ isActive }) =>
+                    isActive ? "active bg-primary text-primary-content" : ""
+                  }
+                >
+                  Actualizar
                 </NavLink>
               </li>
             </ul>
@@ -74,6 +84,16 @@ const MainLayout = () => {
                 Inventario{" "}
               </NavLink>
             </li>
+              <li>
+                <NavLink
+                  to={"update"}
+                  className={({ isActive }) =>
+                    isActive ? "active bg-primary text-primary-content" : ""
+                  }
+                >
+                  Actualizar{" "}
+                </NavLink>
+              </li>
           </ul>
         </div>
         <div className="navbar-end">{/* <a className="btn">Button</a> */}</div>
