@@ -1,4 +1,4 @@
-import React from "react";
+
 import ProductCard from "../components/ProductCard";
 import type { Product } from "../interfaces/product.interface";
 import { useState, useEffect } from "react";

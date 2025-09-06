@@ -1,6 +1,5 @@
-import react from "react";
 import type {Product} from "../interfaces/product.interface"
-import { useState } from "react";
+
 
 
 interface InfoProductCard{

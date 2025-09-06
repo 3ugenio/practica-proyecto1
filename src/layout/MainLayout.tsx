@@ -1,4 +1,4 @@
-import react from "react";
+
 import { NavLink, Outlet } from "react-router";
 
 const MainLayout = () => {
